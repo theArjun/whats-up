@@ -2,3 +2,28 @@
 * {
   font-family: 'Inter', sans-serif;
 }
+
+.todoEntry {
+  width: 100%;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  padding: 20px 10px;
+  line-height: 28px;
+  font-size: 35px;
+  font-family: 'Inter', sans-serif;
+  /* caret-color: transparent; */
+  font-weight: bolder;
+  background-color: inherit;
+}
+
+@media only screen and (max-width: 600px) {
+  .todoEntry {
+    font-size: 23px;
+  }
+}
+
+.todoEntry:focus {
+  outline: none;
+}

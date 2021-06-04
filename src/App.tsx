@@ -71,41 +71,29 @@ const App = () => {
 
   return (
     <div className='container'>
-      <div className='p-5 mb-4 bg-light rounded-3'>
+      <div className='form-entry p-5 my-4 bg-warning rounded shadow-sm'>
         <div className='container-fluid py-5'>
-          <h1 className='h2 fw-bold'>Your TODO</h1>
-          <div className='input-group my-5'>
-            <div>
-              <select className='form-select' onChange={handlePriorityChange}>
-                <option selected>Choose Priority</option>
-                {$enum(Priority)
-                  .getValues()
-                  .map((val, index) => (
-                    <option key={index} value={val}>
-                      {val}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            <input
-              className='form-control'
-              ref={inputRef}
-              onChange={onChange}
-              value={todo}
-              onKeyPress={handleKeyPress}
-              onBlur={addTodo}
-              aria-describedby='addTodo'
-              placeholder='Enter your task'
-              aria-label='Enter your task'
-            />
-            <button
-              className='btn btn-outline-primary'
-              id='addTodo'
-              onClick={addTodo}
-            >
-              Button
-            </button>
-          </div>
+          {/* <select className='form-select' onChange={handlePriorityChange}>
+            <option selected>Priority</option>
+            {$enum(Priority)
+              .getValues()
+              .map((val, index) => (
+                <option key={index} value={val}>
+                  {val}
+                </option>
+              ))}
+          </select> */}
+          <input
+            className='todoEntry'
+            ref={inputRef}
+            onChange={onChange}
+            value={todo}
+            onKeyPress={handleKeyPress}
+            onBlur={addTodo}
+            aria-describedby='addTodo'
+            placeholder="What's up, Arjun ?"
+            aria-label="What's up, Arjun ?"
+          />
         </div>
       </div>
       <div>

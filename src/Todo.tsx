@@ -1,5 +1,6 @@
 import { ITodo } from './todo.interface';
 import taskCompleteIcon from './assets/tasks.svg';
+import deleteIcon from './assets/delete.svg';
 import timeIcon from './assets/time.svg';
 import moment from 'moment';
 import { Priority } from './priority.enum';
@@ -22,10 +23,10 @@ const Todo: React.FC<TodoProps> = ({ todo, onDelete }) => {
   };
 
   return (
-    <div className='card my-4 shadow rounded'>
+    <div className='card my-4 shadow-sm rounded'>
       <div className='card-body'>
         <div className='d-flex justify-content-between'>
-          <div className='d-flex align-items-center'>
+          <div className='d-flex flex-sm-column flex-md-row  align-items-center'>
             <div>
               <span className={getBadgeColor(todo)}>{todo.priority}</span>
             </div>
@@ -36,15 +37,23 @@ const Todo: React.FC<TodoProps> = ({ todo, onDelete }) => {
               </small>
             </div>
           </div>
-          <div className="mx-auto">
+          <div className='mx-auto'>
             <p className='h4'>{todo.name}</p>
           </div>
-          <button
-            className='btn btn-outline-light'
-            onClick={() => onDelete(todo.addedOn)}
-          >
-            <img src={taskCompleteIcon} alt='Delete' height='25' />
-          </button>
+          <div className=''>
+            <button
+              className='btn btn-outline-light'
+              onClick={() => onDelete(todo.addedOn)}
+            >
+              <img src={taskCompleteIcon} alt='Mark as Completed' height='25' />
+            </button>
+            <button
+              className='btn btn-outline-light'
+              onClick={() => onDelete(todo.addedOn)}
+            >
+              <img src={deleteIcon} alt='Delete' height='25' />
+            </button>
+          </div>
         </div>
       </div>
     </div>
