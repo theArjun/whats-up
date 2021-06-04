@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { $enum } from 'ts-enum-util';
 import Todo from './Todo';
 import { ITodo } from './todo.interface';
 import { Priority } from './priority.enum';
@@ -6,6 +7,7 @@ import './App.css';
 
 const App = () => {
   const [todo, setTodo] = useState('');
+  const [priority, setPriority] = useState<Priority>(Priority.LOW);
   const [todoList, setTodoList] = useState<ITodo[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -21,8 +23,11 @@ const App = () => {
     setTodo(event.target.value);
   };
 
-  const onClick = (
-    event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent
+  const addTodo = (
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent
+      | React.FocusEvent<HTMLInputElement>
   ) => {
     // Check if empty value
     if (todo === '') {
@@ -34,7 +39,7 @@ const App = () => {
         name: todo,
         addedOn: new Date(),
         id: Math.floor(Math.random() * 1000000 + 1),
-        priority: Priority.HIGH,
+        priority: priority,
       };
       setTodoList((prevTodoList) => [newTodo, ...prevTodoList]);
     }
@@ -51,25 +56,59 @@ const App = () => {
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
-      onClick(event);
+      addTodo(event);
+    }
+  };
+
+  const handlePriorityChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selectedValue = event.target.value;
+    if (!(selectedValue in Priority)) {
+      return;
     }
   };
 
   return (
     <div className='container'>
       <div className='p-5 mb-4 bg-light rounded-3'>
-        <div className='container-fluid py-5 text-center'>
-          <h1 className='display-5 fw-bold'>Manage your To-Do</h1>
-          <input
-            className='form-control my-4'
-            ref={inputRef}
-            onChange={onChange}
-            value={todo}
-            onKeyPress={handleKeyPress}
-          />
-          <button className='btn btn-outline-primary btn-lg' onClick={onClick}>
-            Add
-          </button>
+        <div className='container-fluid py-5'>
+          <h1 className='h2 fw-bold'>Your TODO</h1>
+          <div className='input-group my-5'>
+            <div>
+              <select
+                className='form-select'
+                onChange={handlePriorityChange}
+              >
+                <option selected>Choose Priority</option>
+                {$enum(Priority)
+                  .getValues()
+                  .map((val, index) => (
+                    <option key={index} value={val}>
+                      {val}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <input
+              className='form-control'
+              ref={inputRef}
+              onChange={onChange}
+              value={todo}
+              onKeyPress={handleKeyPress}
+              onBlur={addTodo}
+              aria-describedby='addTodo'
+              placeholder='Enter your task'
+              aria-label='Enter your task'
+            />
+            <button
+              className='btn btn-outline-primary'
+              id='addTodo'
+              onClick={addTodo}
+            >
+              Button
+            </button>
+          </div>
         </div>
       </div>
 
