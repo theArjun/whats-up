@@ -1,5 +1,6 @@
 import { ITodo } from './todo.interface';
-import trashIcon from './assets/delete.svg';
+import taskCompleteIcon from './assets/tasks.svg';
+import timeIcon from './assets/time.svg';
 import moment from 'moment';
 import { Priority } from './priority.enum';
 
@@ -12,33 +13,41 @@ const Todo: React.FC<TodoProps> = ({ todo, onDelete }) => {
   const getBadgeColor = (todo: ITodo) => {
     switch (todo.priority) {
       case Priority.LOW:
-        return 'badge bg-secondary';
+        return 'badge rounded-pill bg-secondary';
       case Priority.MEDIUM:
-        return 'badge bg-warning';
+        return 'badge rounded-pill bg-warning';
       case Priority.HIGH:
-        return 'badge bg-danger';
+        return 'badge rounded-pill bg-danger';
     }
   };
 
   return (
-    <tr>
-      <td style={{ width: '70%' }}>{todo.name}</td>
-      <td>
-        <small>{moment(todo.addedOn).fromNow()}</small>
-      </td>
-      <td>
-        <span className={getBadgeColor(todo)}>{todo.priority}</span>
-      </td>
-
-      <td>
-        <button
-          className='btn btn-outline-light'
-          onClick={() => onDelete(todo.addedOn)}
-        >
-          <img src={trashIcon} alt='Delete' height='25' />
-        </button>
-      </td>
-    </tr>
+    <div className='card my-4 shadow rounded'>
+      <div className='card-body'>
+        <div className='d-flex justify-content-between'>
+          <div className='d-flex align-items-center'>
+            <div>
+              <span className={getBadgeColor(todo)}>{todo.priority}</span>
+            </div>
+            <div className=' ms-2 d-flex align-items-center'>
+              <img src={timeIcon} alt='Time' height='12' />
+              <small className='ms-1 text-muted'>
+                {moment(todo.addedOn).fromNow()}
+              </small>
+            </div>
+          </div>
+          <div className="mx-auto">
+            <p className='h4'>{todo.name}</p>
+          </div>
+          <button
+            className='btn btn-outline-light'
+            onClick={() => onDelete(todo.addedOn)}
+          >
+            <img src={taskCompleteIcon} alt='Delete' height='25' />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

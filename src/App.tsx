@@ -76,10 +76,7 @@ const App = () => {
           <h1 className='h2 fw-bold'>Your TODO</h1>
           <div className='input-group my-5'>
             <div>
-              <select
-                className='form-select'
-                onChange={handlePriorityChange}
-              >
+              <select className='form-select' onChange={handlePriorityChange}>
                 <option selected>Choose Priority</option>
                 {$enum(Priority)
                   .getValues()
@@ -111,24 +108,11 @@ const App = () => {
           </div>
         </div>
       </div>
-
-      <table className='table text-center' style={{ overflowX: 'scroll' }}>
-        <thead>
-          <tr>
-            <th scope='col' style={{ width: '70%' }}>
-              Name
-            </th>
-            <th scope='col'>Added On</th>
-            <th scope='col'>Priority</th>
-            <th scope='col'>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {todoList.map((todo) => {
-            return <Todo key={todo.id} todo={todo} onDelete={onDelete} />;
-          })}
-        </tbody>
-      </table>
+      <div>
+        {todoList.map((todo) => {
+          return <Todo key={todo.id} todo={todo} onDelete={onDelete} />;
+        })}
+      </div>
     </div>
   );
 };
