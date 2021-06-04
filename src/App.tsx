@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Todo from './Todo';
 import { ITodo } from './todo.interface';
-
+import { Priority } from './priority.enum';
 import './App.css';
 
 const App = () => {
@@ -30,8 +30,13 @@ const App = () => {
 
     // Check if already exists
     else if (todoList.find((_todo) => _todo.name === todo) === undefined) {
-      const newTodo: ITodo = { name: todo, addedOn: new Date() };
-      setTodoList((prevTodoList) => prevTodoList.concat(newTodo));
+      const newTodo: ITodo = {
+        name: todo,
+        addedOn: new Date(),
+        id: Math.floor(Math.random() * 1000000 + 1),
+        priority: Priority.HIGH,
+      };
+      setTodoList((prevTodoList) => [newTodo, ...prevTodoList]);
     }
 
     setTodo('');
@@ -68,16 +73,20 @@ const App = () => {
         </div>
       </div>
 
-      <table className='table text-center'>
+      <table className='table text-center' style={{ overflowX: 'scroll' }}>
         <thead>
           <tr>
-            <th scope='col'>Name</th>
+            <th scope='col' style={{ width: '70%' }}>
+              Name
+            </th>
+            <th scope='col'>Added On</th>
+            <th scope='col'>Priority</th>
             <th scope='col'>Action</th>
           </tr>
         </thead>
         <tbody>
-          {todoList.map((todo, index) => {
-            return <Todo key={index} todo={todo} onDelete={onDelete} />;
+          {todoList.map((todo) => {
+            return <Todo key={todo.id} todo={todo} onDelete={onDelete} />;
           })}
         </tbody>
       </table>
