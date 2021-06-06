@@ -8,6 +8,7 @@ import { ITodo } from './todo.interface';
 
 const App = () => {
   const [todo, setTodo] = useState('');
+  // eslint-disable-next-line
   const [priority, setPriority] = useState<Priority>(Priority.LOW);
   const [todoList, setTodoList] = useState<ITodo[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
