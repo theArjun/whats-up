@@ -1,0 +1,35 @@
+{
+    "python.pythonPath": ".venv/bin/python",
+    "python.autoComplete.extraPaths": [
+        ".venv/bin/python",
+    ],
+    "python.linting.flake8Path": ".venv/bin/flake8",
+    "python.formatting.yapfPath": ".venv/bin/yapf",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "python.linting.flake8Args": [
+        "--config=.flake8",
+        "--ignore=E133",
+    ],
+    "python.linting.flake8Enabled": false,
+    "python.linting.mypyEnabled": true,
+    "python.linting.flake8CategorySeverity.F": "Error",
+    "python.linting.flake8CategorySeverity.E": "Error",
+    "python.formatting.provider": "yapf",
+    "editor.rulers": [80, 120],
+    "files.associations": {
+        "**/*.html": "html",
+        "**/templates/**/*.html": "django-html",
+        "**/templates/**/*": "django-txt",
+        "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+    },
+    "emmet.includeLanguages": {
+        "django-html": "html"
+    },
+    "python.envFile": "${workspaceRoot}/.venv",
+    "python.analysis.extraPaths": [
+        ".venv/bin/python"
+    ],
+    "python.linting.enabled": true,
+}
