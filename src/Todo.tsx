@@ -1,9 +1,8 @@
-import { ITodo } from './todo.interface';
-import taskCompleteIcon from './assets/tasks.svg';
-import deleteIcon from './assets/delete.svg';
-import timeIcon from './assets/time.svg';
 import moment from 'moment';
+import taskCompleteIcon from './assets/tasks.svg';
+import timeIcon from './assets/time.svg';
 import { Priority } from './priority.enum';
+import { ITodo } from './todo.interface';
 
 interface TodoProps {
   todo: ITodo;

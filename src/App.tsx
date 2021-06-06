@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { $enum } from 'ts-enum-util';
-import Todo from './Todo';
-import { ITodo } from './todo.interface';
-import { Priority } from './priority.enum';
 import './App.css';
 import Empty from './components/Empty';
+import { Priority } from './priority.enum';
+import { fetchTodos } from './services/todo';
+import Todo from './Todo';
+import { ITodo } from './todo.interface';
 
 const App = () => {
   const [todo, setTodo] = useState('');
@@ -18,6 +18,10 @@ const App = () => {
       return;
     }
     inputRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    fetchTodos();
   }, []);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,29 +65,10 @@ const App = () => {
     }
   };
 
-  const handlePriorityChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const selectedValue = event.target.value;
-    if (!(selectedValue in Priority)) {
-      return;
-    }
-  };
-
   return (
     <div className='container'>
       <div className='form-entry p-5 my-4 bg-warning rounded shadow-sm'>
         <div className='container-fluid py-5'>
-          {/* <select className='form-select' onChange={handlePriorityChange}>
-            <option selected>Priority</option>
-            {$enum(Priority)
-              .getValues()
-              .map((val, index) => (
-                <option key={index} value={val}>
-                  {val}
-                </option>
-              ))}
-          </select> */}
           <input
             className='todoEntry'
             ref={inputRef}
