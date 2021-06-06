@@ -4,6 +4,7 @@ import Todo from './Todo';
 import { ITodo } from './todo.interface';
 import { Priority } from './priority.enum';
 import './App.css';
+import Empty from './components/Empty';
 
 const App = () => {
   const [todo, setTodo] = useState('');
@@ -97,9 +98,13 @@ const App = () => {
         </div>
       </div>
       <div>
-        {todoList.map((todo) => {
-          return <Todo key={todo.id} todo={todo} onDelete={onDelete} />;
-        })}
+        {todoList.length > 0 ? (
+          todoList.map((todo) => {
+            return <Todo key={todo.id} todo={todo} onDelete={onDelete} />;
+          })
+        ) : (
+          <Empty />
+        )}
       </div>
     </div>
   );
