@@ -47,12 +47,6 @@ const Todo: React.FC<TodoProps> = ({ todo, onDelete }) => {
             >
               <img src={taskCompleteIcon} alt='Mark as Completed' height='25' />
             </button>
-            <button
-              className='btn btn-outline-light'
-              onClick={() => onDelete(todo.addedOn)}
-            >
-              <img src={deleteIcon} alt='Delete' height='25' />
-            </button>
           </div>
         </div>
       </div>
