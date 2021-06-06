@@ -69,7 +69,7 @@ const App = () => {
   return (
     <div className='container'>
       <div className='form-entry p-5 my-4 bg-warning rounded shadow-sm'>
-        <div className='container-fluid py-5'>
+        <div className='container-fluid'>
           <input
             className='todoEntry'
             ref={inputRef}
