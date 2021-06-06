@@ -31,19 +31,30 @@ class Todo(TimeStampedModel):
         INCOMPLETE = ('INCOMPLETE', 'Incomplete')
         COMPLETE = ('COMPLETE', 'Complete')
 
+    class TodoPriority(models.TextChoices):
+        LOW = ('LOW', 'Low')
+        MEDIUM = ('MEDIUM', 'Medium')
+        HIGH = ('HIGH', 'High')
+
     title = models.CharField(_('Todo Title'), max_length=200)
     project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
         verbose_name=_('Project'),
         blank=True,
-        null=True
+        null=True,
     )
     state = models.CharField(
         _('Todo State'),
         max_length=10,
         choices=TodoState.choices,
         default=TodoState.INCOMPLETE,
+    )
+    priority = models.CharField(
+        _('Todo Priority'),
+        max_length=6,
+        choices=TodoPriority.choices,
+        default=TodoPriority.LOW,
     )
 
     def __str__(self) -> str:

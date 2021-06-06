@@ -6,6 +6,11 @@ from django.urls import (
 )
 
 
+title: str = 'Todo Admin'
+admin.site.site_header = title
+admin.site.site_title = f'{title}'
+admin.site.index_title = f'Welcome to {title} Administration'
+
 urlpatterns = [
     path('api/', include('core.api_urls')),
     path('admin/', admin.site.urls),

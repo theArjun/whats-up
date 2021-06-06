@@ -24,6 +24,7 @@ class TodoSerializer(serializers.ModelSerializer):
             'title',
             'project',
             'state',
+            'priority',
             'created',
             'modified',
         )

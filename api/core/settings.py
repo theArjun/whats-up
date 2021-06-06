@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # Third Party Apps
     'rest_framework',
     'django_extensions',
+    'corsheaders',
+    'drf_spectacular',
 
     # Local apps
     'todo.apps.TodoConfig',
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -129,3 +132,30 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Rest Framework
+REST_FRAMEWORK = {
+    'DATETIME_FORMAT': "%Y-%m-%d - %H:%M:%S",
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+}
+
+SPECTACULAR_SETTINGS = {
+    'SCHEMA_PATH_PREFIX': r'/api/',
+    'TITLE': 'Todo API',
+    'DESCRIPTION': 'Todo API Specification',
+    'VERSION': '1.0.0',
+    'SWAGGER_UI_FAVICON_HREF': None,
+    'COMPONENT_SPLIT_REQUEST': True,
+}
+
+# Cors
+CORS_ALLOW_ALL_ORIGINS = True
