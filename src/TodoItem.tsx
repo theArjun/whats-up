@@ -5,7 +5,7 @@ import { ITodo } from './todo.interface';
 
 interface TodoProps {
   todo: ITodo;
-  onDelete: (index: Date) => void;
+  onDelete: (index: number) => void;
 }
 
 const Todo: React.FC<TodoProps> = ({ todo, onDelete }) => {

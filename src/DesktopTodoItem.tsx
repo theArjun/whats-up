@@ -7,7 +7,7 @@ import { ITodo } from './todo.interface';
 
 interface DesktopTodoItemProps {
   todo: ITodo;
-  onDelete: (index: Date) => void;
+  onDelete: (index: number) => void;
 }
 
 const DesktopTodoItem: React.FC<DesktopTodoItemProps> = ({
@@ -35,7 +35,7 @@ const DesktopTodoItem: React.FC<DesktopTodoItemProps> = ({
           <div className=''>
             <button
               className='btn btn-outline-light'
-              onClick={() => onDelete(todo.addedOn)}
+              onClick={() => onDelete(todo.id)}
             >
               <img src={taskCompleteIcon} alt='Mark as Completed' height='25' />
             </button>
