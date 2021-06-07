@@ -1,16 +1,32 @@
 import moment from 'moment';
-import React from 'react';
+import React, { useState } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import timeIcon from './assets/time.svg';
 import { getBadgeColor } from './helpers';
 import { ITodo } from './todo.interface';
+
 interface MobileTodoItemProps {
   todo: ITodo;
-  onDelete: (index: Date) => void;
+  onDelete: (index: number) => void;
 }
 
 const MobileTodoItem: React.FC<MobileTodoItemProps> = ({ todo, onDelete }) => {
+  const [leftSwipe, setLeftSwipe] = useState(false);
+  const [rightSwipe, setRightSwipe] = useState(false);
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      setLeftSwipe(true);
+      alert('Swiped Left');
+    },
+    onSwipedRight: () => {
+      setRightSwipe(true);
+      onDelete(todo.id);
+    },
+  });
+
   return (
-    <div className='card my-3 shadow-sm rounded'>
+    <div {...handlers} className='card my-3 shadow-sm rounded unselectable'>
       <div className='card-body'>
         <div className='d-flex justify-content-between align-items-center'>
           <div>
