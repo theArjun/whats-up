@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useSwipeable } from 'react-swipeable';
 import timeIcon from './assets/time.svg';
 import { getBadgeColor } from './helpers';
@@ -17,7 +18,7 @@ const MobileTodoItem: React.FC<MobileTodoItemProps> = ({ todo, onDelete }) => {
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       setLeftSwipe(true);
-      alert('Swiped Left');
+      toast('You swiped left');
     },
     onSwipedRight: () => {
       setRightSwipe(true);

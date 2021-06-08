@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import FlipMove from 'react-flip-move';
+import toast, { Toaster } from 'react-hot-toast';
+import { useMediaQuery } from 'react-responsive';
 import './App.css';
 import Empty from './components/Empty';
 import { Priority } from './priority.enum';
@@ -13,6 +15,12 @@ const App = () => {
   const [priority, setPriority] = useState<Priority>(Priority.LOW);
   const [todoList, setTodoList] = useState<ITodo[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const isMobileDevice = useMediaQuery({
+    query: '(max-device-width: 1224px)',
+  });
+
+  const notifyCompleted = () => toast.success('Congrats on completion.');
+  const notifyDeleted = () => toast.error('Todo deleted.');
 
   useEffect(() => {
     // Type Guard
@@ -59,6 +67,7 @@ const App = () => {
     setTodoList((prevTodoList) =>
       prevTodoList.filter((todo) => todo.id !== id)
     );
+    notifyDeleted();
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
@@ -94,6 +103,13 @@ const App = () => {
           ))}
         </FlipMove>
       )}
+      <Toaster
+        position={isMobileDevice ? 'top-center' : 'bottom-right'}
+        toastOptions={{
+          duration: isMobileDevice ? 1000 : 2000,
+          icon: '✅',
+        }}
+      />
     </div>
   );
 };
