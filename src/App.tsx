@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import FlipMove from 'react-flip-move';
 import './App.css';
 import Empty from './components/Empty';
 import { Priority } from './priority.enum';
@@ -54,9 +55,9 @@ const App = () => {
     inputRef.current?.focus();
   };
 
-  const onDelete = (date: Date) => {
+  const onDelete = (id: number) => {
     setTodoList((prevTodoList) =>
-      prevTodoList.filter((todo) => todo.addedOn !== date)
+      prevTodoList.filter((todo) => todo.id !== id)
     );
   };
 
@@ -83,15 +84,16 @@ const App = () => {
           />
         </div>
       </div>
-      <div>
-        {todoList.length > 0 ? (
-          todoList.map((todo) => {
-            return <TodoItem key={todo.id} todo={todo} onDelete={onDelete} />;
-          })
-        ) : (
-          <Empty />
-        )}
-      </div>
+
+      {todoList.length === 0 ? (
+        <Empty />
+      ) : (
+        <FlipMove>
+          {todoList.map((todo) => (
+            <TodoItem key={todo.id} todo={todo} onDelete={onDelete} />
+          ))}
+        </FlipMove>
+      )}
     </div>
   );
 };
