@@ -8,7 +8,6 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 import { Priority } from './priority.enum';
 import './scss/style.scss';
 import { fetchTodos } from './services/todo';
-import { ITodo } from './todo.interface';
 import TodoItem from './TodoItem';
 
 const App = () => {
@@ -40,28 +39,9 @@ const App = () => {
   };
 
   const onAddHandler = (
-    event:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent
-      | React.FocusEvent<HTMLInputElement>
+    event: React.KeyboardEvent | React.FocusEvent<HTMLInputElement>
   ) => {
-    // Check if empty value
-    if (todo === '') {
-    }
-
-    // Check if already exists
-    else if (
-      todoList.find((_todo: ITodo) => _todo.name === todo) === undefined
-    ) {
-      const newTodo: ITodo = {
-        name: todo,
-        addedOn: new Date(),
-        id: Math.floor(Math.random() * 1000000 + 1),
-        priority: priority,
-      };
-      addTodo(newTodo);
-    }
-
+    addTodo(todo, Priority['LOW']);
     setTodo('');
     inputRef.current?.focus();
   };

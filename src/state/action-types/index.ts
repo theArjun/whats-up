@@ -1,5 +1,6 @@
 export enum TodoActionType {
   ADD_TODO = 'ADD_TODO',
+  ADD_TODO_ERROR = 'ADD_TODO_ERROR',
   COMPLETE_TODO = 'COMPLETE_TODO',
   DELETE_TODO = 'DELETE_TODO',
 }

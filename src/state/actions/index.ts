@@ -16,4 +16,13 @@ interface DeleteTodoAction {
   payload: number;
 }
 
-export type Action = AddTodoAction | CompleteTodoAction | DeleteTodoAction;
+interface AddTodoErrorAction {
+  type: TodoActionType.ADD_TODO_ERROR;
+  payload: string;
+}
+
+export type Action =
+  | AddTodoAction
+  | CompleteTodoAction
+  | DeleteTodoAction
+  | AddTodoErrorAction;

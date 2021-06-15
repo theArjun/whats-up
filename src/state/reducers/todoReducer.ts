@@ -22,6 +22,11 @@ const reducer = (state = initialState, action: Action) => {
         error: '',
         todoList: [action.payload, ...state.todoList],
       };
+    case TodoActionType.ADD_TODO_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
     case TodoActionType.DELETE_TODO:
       return {
         ...state,
