@@ -14,12 +14,14 @@ const App = () => {
   // eslint-disable-next-line
   const [priority, setPriority] = useState<Priority>(Priority.LOW);
   const [todoList, setTodoList] = useState<ITodo[]>([]);
+  // eslint-disable-next-line
+  const [completedtodoList, setCompletedTodoList] = useState<ITodo[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isMobileDevice = useMediaQuery({
     query: '(max-device-width: 1224px)',
   });
 
-  const notifyCompleted = () => toast.success('Congrats on completion.');
+  const notifyCompleted = () => toast.success('Marked as done.');
   const notifyDeleted = () => toast.error('Todo deleted.');
 
   useEffect(() => {
@@ -49,14 +51,16 @@ const App = () => {
     }
 
     // Check if already exists
-    else if (todoList.find((_todo) => _todo.name === todo) === undefined) {
+    else if (
+      todoList.find((_todo: ITodo) => _todo.name === todo) === undefined
+    ) {
       const newTodo: ITodo = {
         name: todo,
         addedOn: new Date(),
         id: Math.floor(Math.random() * 1000000 + 1),
         priority: priority,
       };
-      setTodoList((prevTodoList) => [newTodo, ...prevTodoList]);
+      setTodoList((prevTodoList: ITodo[]) => [newTodo, ...prevTodoList]);
     }
 
     setTodo('');
@@ -64,10 +68,25 @@ const App = () => {
   };
 
   const onDelete = (id: number) => {
-    setTodoList((prevTodoList) =>
+    setTodoList((prevTodoList: ITodo[]) =>
       prevTodoList.filter((todo) => todo.id !== id)
     );
     notifyDeleted();
+  };
+
+  const onComplete = (id: number) => {
+    const completedTodo = todoList.find((_todo) => _todo.id === id);
+    if (completedTodo === undefined) {
+      return;
+    }
+    setCompletedTodoList((prevCompletedTodoList) =>
+      [completedTodo, ...prevCompletedTodoList]
+    );
+    notifyCompleted();
+    // Then remove from the todo list
+    setTodoList((prevTodoList: ITodo[]) =>
+      prevTodoList.filter((todo) => todo.id !== id)
+    );
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
@@ -99,7 +118,12 @@ const App = () => {
       ) : (
         <FlipMove>
           {todoList.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} onDelete={onDelete} />
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              onDelete={onDelete}
+              onComplete={onComplete}
+            />
           ))}
         </FlipMove>
       )}

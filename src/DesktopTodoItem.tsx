@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React from 'react';
+import deleteIcon from './assets/delete.svg';
 import taskCompleteIcon from './assets/tasks.svg';
 import timeIcon from './assets/time.svg';
 import { getBadgeColor } from './helpers';
@@ -8,11 +9,13 @@ import { ITodo } from './todo.interface';
 interface DesktopTodoItemProps {
   todo: ITodo;
   onDelete: (index: number) => void;
+  onComplete: (index: number) => void;
 }
 
 const DesktopTodoItem: React.FC<DesktopTodoItemProps> = ({
   todo,
   onDelete,
+  onComplete,
 }) => {
   return (
     <div className='card my-4 shadow-sm rounded'>
@@ -35,9 +38,17 @@ const DesktopTodoItem: React.FC<DesktopTodoItemProps> = ({
           <div className=''>
             <button
               className='btn btn-outline-light'
+              onClick={() => onComplete(todo.id)}
+            >
+              <img src={taskCompleteIcon} alt='Mark as Done' height='25' />
+            </button>
+          </div>
+          <div className=''>
+            <button
+              className='btn btn-outline-light'
               onClick={() => onDelete(todo.id)}
             >
-              <img src={taskCompleteIcon} alt='Mark as Completed' height='25' />
+              <img src={deleteIcon} alt='Delete Todo' height='25' />
             </button>
           </div>
         </div>
