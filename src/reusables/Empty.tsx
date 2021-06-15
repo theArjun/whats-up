@@ -1,7 +1,11 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import emptyListImage from '../assets/emptyList.svg';
-const Empty: React.FC = () => {
+
+interface EmptyProps {
+  message: string;
+}
+const Empty: React.FC<EmptyProps> = ({ message }) => {
   const isMobileDevice = useMediaQuery({
     query: '(max-device-width: 1224px)',
   });
@@ -15,9 +19,9 @@ const Empty: React.FC = () => {
             maxWidth: isMobileDevice ? '10rem' : '20rem',
             height: 'auto',
           }}
-          alt='Empty List'
+          alt='Empty'
         />
-        <p className='text-dark fw-bold  mt-5 h3'>No Jobs, yet.</p>
+        <p className='text-dark fw-bold  mt-5 h3'>{message}</p>
       </div>
     </div>
   );

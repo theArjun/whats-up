@@ -1,23 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import FlipMove from 'react-flip-move';
-import { Toaster } from 'react-hot-toast';
-import { useMediaQuery } from 'react-responsive';
-import Empty from '../reusables/Empty';
+import Toast from '../components/Toast';
+import TodoItem from '../components/TodoItem';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { Priority } from './priority.enum';
+import Empty from '../reusables/Empty';
 import '../scss/style.scss';
 import { fetchTodos } from '../services/todo';
-import TodoItem from '../components/TodoItem';
+import { Priority } from './priority.enum';
 
 const App = () => {
   const [todo, setTodo] = useState('');
   // eslint-disable-next-line
   const [priority, setPriority] = useState<Priority>(Priority.LOW);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const isMobileDevice = useMediaQuery({
-    query: '(max-device-width: 1224px)',
-  });
 
   const { addTodo, completeTodo, deleteTodo } = useActions();
   const { todoList } = useTypedSelector((state) => state.todo);
@@ -79,7 +75,7 @@ const App = () => {
       </div>
 
       {todoList.length === 0 ? (
-        <Empty />
+        <Empty message='No Jobs, yet.' />
       ) : (
         <FlipMove>
           {todoList.map((todo) => (
@@ -92,27 +88,7 @@ const App = () => {
           ))}
         </FlipMove>
       )}
-      <Toaster
-        position={isMobileDevice ? 'top-center' : 'bottom-right'}
-        toastOptions={{
-          duration: isMobileDevice ? 1000 : 2000,
-          icon: '🔔',
-          style: {
-            color: '#333',
-          },
-          success: {
-            style: {
-              background: 'lightgreen',
-            },
-          },
-          error: {
-            style: {
-              background: '#ff9999',
-              color: '#333',
-            },
-          },
-        }}
-      />
+      <Toast />
     </div>
   );
 };
