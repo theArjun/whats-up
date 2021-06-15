@@ -5,7 +5,6 @@ import { TodoActionType } from '../action-types';
 
 const notifyCompleted = () => toast.success('Marked as done.');
 const notifyDeleted = () => toast.error('Todo deleted.');
-const notifyEmptyTodo = () => toast.error('Todo cant be empty.');
 
 export const addTodo = (todo: string, priority: Priority) => {
   return (dispatch: any) => {
@@ -15,7 +14,6 @@ export const addTodo = (todo: string, priority: Priority) => {
         type: TodoActionType.ADD_TODO_ERROR,
         payload: 'Todo is Empty',
       });
-      notifyEmptyTodo();
     } else {
       const newTodo: ITodo = {
         name: todo,
