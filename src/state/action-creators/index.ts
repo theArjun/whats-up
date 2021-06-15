@@ -1,5 +1,9 @@
+import toast from 'react-hot-toast';
 import { ITodo } from '../../todo.interface';
 import { TodoActionType } from '../action-types';
+
+const notifyCompleted = () => toast.success('Marked as done.');
+const notifyDeleted = () => toast.error('Todo deleted.');
 
 export const addTodo = (todo: ITodo) => {
   return (dispatch: any) => {
@@ -16,6 +20,7 @@ export const completeTodo = (id: number) => {
       type: TodoActionType.COMPLETE_TODO,
       payload: id,
     });
+    notifyCompleted()
   };
 };
 
@@ -25,5 +30,6 @@ export const deleteTodo = (id: number) => {
       type: TodoActionType.DELETE_TODO,
       payload: id,
     });
+    notifyDeleted()
   };
 };

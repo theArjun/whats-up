@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import FlipMove from 'react-flip-move';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { useMediaQuery } from 'react-responsive';
 import Empty from './components/Empty';
 import { useActions } from './hooks/useActions';
@@ -15,8 +15,6 @@ const App = () => {
   const [todo, setTodo] = useState('');
   // eslint-disable-next-line
   const [priority, setPriority] = useState<Priority>(Priority.LOW);
-  // eslint-disable-next-line
-  const [completedtodoList, setCompletedTodoList] = useState<ITodo[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isMobileDevice = useMediaQuery({
     query: '(max-device-width: 1224px)',
@@ -24,9 +22,6 @@ const App = () => {
 
   const { addTodo, completeTodo, deleteTodo } = useActions();
   const { todoList } = useTypedSelector((state) => state.todo);
-
-  const notifyCompleted = () => toast.success('Marked as done.');
-  const notifyDeleted = () => toast.error('Todo deleted.');
 
   useEffect(() => {
     // Type Guard
@@ -44,7 +39,7 @@ const App = () => {
     setTodo(event.target.value);
   };
 
-  const __addTodo = (
+  const onAddHandler = (
     event:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent
@@ -71,19 +66,17 @@ const App = () => {
     inputRef.current?.focus();
   };
 
-  const onDelete = (id: number) => {
+  const onDeleteHandler = (id: number) => {
     deleteTodo(id);
-    notifyDeleted();
   };
 
-  const onComplete = (id: number) => {
+  const onCompleteHandler = (id: number) => {
     completeTodo(id);
-    notifyCompleted();
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
-      __addTodo(event);
+      onAddHandler(event);
     }
   };
 
@@ -97,7 +90,7 @@ const App = () => {
             onChange={onChange}
             value={todo}
             onKeyPress={handleKeyPress}
-            onBlur={__addTodo}
+            onBlur={onAddHandler}
             aria-describedby='addTodo'
             placeholder="What's up, Arjun ?"
             aria-label="What's up, Arjun ?"
@@ -113,8 +106,8 @@ const App = () => {
             <TodoItem
               key={todo.id}
               todo={todo}
-              onDelete={onDelete}
-              onComplete={onComplete}
+              onDelete={onDeleteHandler}
+              onComplete={onCompleteHandler}
             />
           ))}
         </FlipMove>
