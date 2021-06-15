@@ -12,7 +12,6 @@ import TodoItem from './TodoItem';
 
 const App = () => {
   const [todo, setTodo] = useState('');
-  // eslint-disable-next-line
   const [priority, setPriority] = useState<Priority>(Priority.LOW);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isMobileDevice = useMediaQuery({
@@ -96,7 +95,21 @@ const App = () => {
         position={isMobileDevice ? 'top-center' : 'bottom-right'}
         toastOptions={{
           duration: isMobileDevice ? 1000 : 2000,
-          icon: '✅',
+          icon: '🔔',
+          style: {
+            color: '#333',
+          },
+          success: {
+            style: {
+              background: 'lightgreen',
+            },
+          },
+          error: {
+            style: {
+              background: '#ff9999',
+              color: '#333',
+            },
+          },
         }}
       />
     </div>
