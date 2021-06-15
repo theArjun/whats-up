@@ -1,5 +1,5 @@
-import { Priority } from '../priority.enum';
-import { ITodo } from '../todo.interface';
+import { Priority } from '../views/priority.enum';
+import { ITodo } from '../views/todo.interface';
 
 export const getBadgeColor = (todo: ITodo) => {
   switch (todo.priority) {

@@ -1,4 +1,4 @@
-import { ITodo } from '../../todo.interface';
+import { ITodo } from '../../views/todo.interface';
 import { TodoActionType } from '../action-types';
 
 interface AddTodoAction {

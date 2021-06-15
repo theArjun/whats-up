@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
-import { Priority } from '../../priority.enum';
-import { ITodo } from '../../todo.interface';
+import { Priority } from '../../views/priority.enum';
+import { ITodo } from '../../views/todo.interface';
 import { TodoActionType } from '../action-types';
 
 const notifyCompleted = () => toast.success('Marked as done.');

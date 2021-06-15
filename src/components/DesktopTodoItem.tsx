@@ -1,10 +1,10 @@
 import moment from 'moment';
 import React from 'react';
-import deleteIcon from './assets/delete.svg';
-import taskCompleteIcon from './assets/tasks.svg';
-import timeIcon from './assets/time.svg';
-import { getBadgeColor } from './helpers';
-import { ITodo } from './todo.interface';
+import deleteIcon from '../assets/delete.svg';
+import taskCompleteIcon from '../assets/tasks.svg';
+import timeIcon from '../assets/time.svg';
+import { getBadgeColor } from '../helpers';
+import { ITodo } from '../views/todo.interface';
 
 interface DesktopTodoItemProps {
   todo: ITodo;

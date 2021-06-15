@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import DesktopTodoItem from './DesktopTodoItem';
 import MobileTodoItem from './MobileTodoItem';
-import { ITodo } from './todo.interface';
+import { ITodo } from '../views/todo.interface';
 
 interface TodoProps {
   todo: ITodo;

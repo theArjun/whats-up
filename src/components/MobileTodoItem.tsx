@@ -1,9 +1,9 @@
 import moment from 'moment';
 import React from 'react';
 import { useSwipeable } from 'react-swipeable';
-import timeIcon from './assets/time.svg';
-import { getBadgeColor } from './helpers';
-import { ITodo } from './todo.interface';
+import timeIcon from '../assets/time.svg';
+import { getBadgeColor } from '../helpers';
+import { ITodo } from '../views/todo.interface';
 
 interface MobileTodoItemProps {
   todo: ITodo;
