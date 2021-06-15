@@ -3,6 +3,8 @@ import FlipMove from 'react-flip-move';
 import toast, { Toaster } from 'react-hot-toast';
 import { useMediaQuery } from 'react-responsive';
 import Empty from './components/Empty';
+import { useActions } from './hooks/useActions';
+import { useTypedSelector } from './hooks/useTypedSelector';
 import { Priority } from './priority.enum';
 import './scss/style.scss';
 import { fetchTodos } from './services/todo';
@@ -13,13 +15,15 @@ const App = () => {
   const [todo, setTodo] = useState('');
   // eslint-disable-next-line
   const [priority, setPriority] = useState<Priority>(Priority.LOW);
-  const [todoList, setTodoList] = useState<ITodo[]>([]);
   // eslint-disable-next-line
   const [completedtodoList, setCompletedTodoList] = useState<ITodo[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isMobileDevice = useMediaQuery({
     query: '(max-device-width: 1224px)',
   });
+
+  const { addTodo, completeTodo, deleteTodo } = useActions();
+  const { todoList } = useTypedSelector((state) => state.todo);
 
   const notifyCompleted = () => toast.success('Marked as done.');
   const notifyDeleted = () => toast.error('Todo deleted.');
@@ -40,7 +44,7 @@ const App = () => {
     setTodo(event.target.value);
   };
 
-  const addTodo = (
+  const __addTodo = (
     event:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent
@@ -60,7 +64,7 @@ const App = () => {
         id: Math.floor(Math.random() * 1000000 + 1),
         priority: priority,
       };
-      setTodoList((prevTodoList: ITodo[]) => [newTodo, ...prevTodoList]);
+      addTodo(newTodo);
     }
 
     setTodo('');
@@ -68,30 +72,18 @@ const App = () => {
   };
 
   const onDelete = (id: number) => {
-    setTodoList((prevTodoList: ITodo[]) =>
-      prevTodoList.filter((todo) => todo.id !== id)
-    );
+    deleteTodo(id);
     notifyDeleted();
   };
 
   const onComplete = (id: number) => {
-    const completedTodo = todoList.find((_todo) => _todo.id === id);
-    if (completedTodo === undefined) {
-      return;
-    }
-    setCompletedTodoList((prevCompletedTodoList) =>
-      [completedTodo, ...prevCompletedTodoList]
-    );
+    completeTodo(id);
     notifyCompleted();
-    // Then remove from the todo list
-    setTodoList((prevTodoList: ITodo[]) =>
-      prevTodoList.filter((todo) => todo.id !== id)
-    );
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
-      addTodo(event);
+      __addTodo(event);
     }
   };
 
@@ -105,7 +97,7 @@ const App = () => {
             onChange={onChange}
             value={todo}
             onKeyPress={handleKeyPress}
-            onBlur={addTodo}
+            onBlur={__addTodo}
             aria-describedby='addTodo'
             placeholder="What's up, Arjun ?"
             aria-label="What's up, Arjun ?"
