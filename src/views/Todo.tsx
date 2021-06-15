@@ -9,9 +9,8 @@ import '../scss/style.scss';
 import { fetchTodos } from '../services/todo';
 import { Priority } from './priority.enum';
 
-const App = () => {
+const Todo = () => {
   const [todo, setTodo] = useState('');
-  // eslint-disable-next-line
   const [priority, setPriority] = useState<Priority>(Priority.LOW);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -34,10 +33,20 @@ const App = () => {
     setTodo(event.target.value);
   };
 
-  const onAddHandler = (
-    event: React.KeyboardEvent | React.FocusEvent<HTMLInputElement>
+  const handlePriorityChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    addTodo(todo, Priority['LOW']);
+    const value = event.target.value;
+    if (value === 'HIGH' || value === 'MEDIUM' || value === 'LOW') {
+      setPriority(Priority[value]);
+    } else {
+      // Type Guard
+      return;
+    }
+  };
+
+  const onAddHandler = (event: React.KeyboardEvent) => {
+    addTodo(todo, priority);
     setTodo('');
     inputRef.current?.focus();
   };
@@ -59,6 +68,15 @@ const App = () => {
   return (
     <div className='container'>
       <div className='form-entry p-5 my-4 bg-warning rounded shadow-sm'>
+        <select className='choosePriority' onChange={handlePriorityChange}>
+          <optgroup label='Todo Priority'>
+            <option value='HIGH'>HIGH</option>
+            <option value='MEDIUM'>MEDIUM</option>
+            <option value='LOW' selected>
+              LOW
+            </option>
+          </optgroup>
+        </select>
         <div className='container-fluid'>
           <input
             className='todoEntry'
@@ -66,7 +84,6 @@ const App = () => {
             onChange={onChange}
             value={todo}
             onKeyPress={handleKeyPress}
-            onBlur={onAddHandler}
             aria-describedby='addTodo'
             placeholder="What's up, Arjun ?"
             aria-label="What's up, Arjun ?"
@@ -93,4 +110,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Todo;

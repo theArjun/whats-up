@@ -35,3 +35,17 @@
 .todoEntry:focus {
   outline: none;
 }
+
+.choosePriority {
+  float: right;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; /* Remove default arrow */
+  font-size: 13px;
+  border-radius: 30px;
+  width:70px;
+  text-align:center;
+  border:3px solid yellow;
+  background-color: lightgoldenrodyellow;
+  color:coral
+}

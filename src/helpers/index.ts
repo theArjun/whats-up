@@ -6,7 +6,7 @@ export const getBadgeColor = (todo: ITodo) => {
     case Priority.LOW:
       return 'badge rounded-pill bg-secondary';
     case Priority.MEDIUM:
-      return 'badge rounded-pill bg-warning';
+      return 'badge rounded-pill bg-primary';
     case Priority.HIGH:
       return 'badge rounded-pill bg-danger';
   }
