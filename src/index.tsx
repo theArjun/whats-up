@@ -1,12 +1,12 @@
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import Todo from './views/Todo';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { store } from './state';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Todo />
+    <App />
   </Provider>,
   document.getElementById('root')
 );
