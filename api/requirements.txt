@@ -15,7 +15,7 @@ pyrsistent==0.17.3
 pytz==2021.1
 PyYAML==5.4.1
 six==1.16.0
-sqlparse==0.4.1
+sqlparse==0.4.2
 typed-ast==1.4.3
 typing-extensions==3.10.0.0
 uritemplate==3.0.1
